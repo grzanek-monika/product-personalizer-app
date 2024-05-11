@@ -1,6 +1,6 @@
 import styles from './Product.module.scss';
 import clsx from 'clsx';
-import Button from '../Button/Button';
+import Button from './Button/Button';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
@@ -17,6 +17,17 @@ const getPrice = () => {
     return basePrice + result.additionalPrice; 
 }
 
+const addToCart = e => {
+  e.preventDefault();
+  console.log( `
+      Summary
+    ===========
+    Name: ${title},
+    Price: ${getPrice()},
+    Size: ${currentSize},
+    Color: ${currentColor}`
+  )
+}
   return (
     <article className={styles.product}>
       <div className={styles.imageContainer}>
@@ -30,12 +41,12 @@ const getPrice = () => {
           <h2 className={styles.name}>{title}</h2>
           <span className={styles.price}>Price: {getPrice()}$</span>
         </header>
-        <form>
+        <form onSubmit={addToCart}>
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
               {sizes.map(size => 
-              <li key={size.id}>
+              <li key={size.name}>
                 <button type='button' onClick={() => setCurrentSize(size.name)}>
                   {size.name}
                 </button>
@@ -46,7 +57,7 @@ const getPrice = () => {
             <h3 className={styles.optionLabel}>Colors</h3>
             <ul className={styles.choices}>
               {colors.map(color => 
-                <li key={color.id}>
+                <li key={color}>
                   <button type='button' 
                   onClick={() => setCurrentColor(color)}
                   className={clsx(prepareColorClassName(color), 
