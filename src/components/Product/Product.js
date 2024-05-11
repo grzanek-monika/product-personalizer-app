@@ -34,7 +34,12 @@ const getPrice = () => {
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
-              {sizes.map(size => <li key={size.id}><button type='button'>{size.name}</button></li>)}        
+              {sizes.map(size => 
+              <li key={size.id}>
+                <button type='button' onClick={() => setCurrentSize(size.name)}>
+                  {size.name}
+                </button>
+              </li>)}        
             </ul>
           </div>
           <div className={styles.colors}>
